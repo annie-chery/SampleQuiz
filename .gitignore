@@ -1,0 +1,32 @@
+ OS #
+######
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Misc #
+#########
+codekit-config.json
+*.sublime-workspace
+*.sublime-project
+.vscode
+
+# Node #
+########
+node_modules/
+npm-debug.log
+
+# Build Related #
+#################
+.tmp/
+__deploy/
+dist/cache
+dist/**/img/
+dist/**/js/
+dist/js
+site/css
