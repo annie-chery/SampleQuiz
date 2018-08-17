@@ -91,6 +91,7 @@ gulp.task('watch',function(){
 	browserSync.init({
 	        server: {
 	            baseDir: 'dist',
+	            open:false,
 
 	            middleware: [
 	                webpackDevMiddleware(bundler, {

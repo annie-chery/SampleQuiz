@@ -4,7 +4,7 @@ const webpack = require("webpack");
 module.exports = {
 	
 	entry: ['webpack/hot/dev-server',
-          'webpack-hot-middleware/client',
+          'webpack-hot-middleware/client?http://localhost:8080/',
            "./src/js/main.js"],
 	output: {
 	path: path.resolve(__dirname, "dist/js/"),
@@ -24,17 +24,18 @@ module.exports = {
       //"src/scripts/local-modules"
     ]
   },
-  devServer: {
-        contentBase: path.join(__dirname, "dist/"),
-        port: 9000
-    },
+  // devServer: {
+  //       contentBase: path.join(__dirname, "dist/"),
+  //       port: 9000
+  //   },
   plugins: [
       new webpack.ProvidePlugin({
           $: "jquery",
           jQuery: "jquery"
       }),
       new webpack.LoaderOptionsPlugin({debug:true}),
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      //new webpack.NoErrorsPlugin()
   ],
 
   
