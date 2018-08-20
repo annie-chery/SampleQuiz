@@ -23,13 +23,38 @@
 <body>
  <div class="main">
  	<div class="body_content">
-	 	<div class="quiz-section">
-	 		<h2 id="question" class="question_heading"></h2>
-	 		<div class="desc"></div>
+	 	<div class="quiz-section" id="block-quiz">
+	 		<form class="quiz-form"> 
+	 			<fieldset>
+	 				<legend>Online Quiz</legend>
+	 				<h2 id="question" class="question_heading"></h2>
+				 		<div class="desc">
+				 			<p id="question-desc"></p>
+				 		</div>
+				 		<div class="radio-options">
+	 						<input type="radio" id="opt1" name="choices">
+	 						<span id="optt1"></span>
+	 					</div>
+	 					<div class="radio-options">
+	 						<input type="radio" id="opt2" name="choices">
+	 						<span id="optt2"></span>
+	 					</div>
+	 					<div class="radio-options">
+	 						<input type="radio" id="opt3" name="choices">
+	 						<span id="optt3"></span>
+	 					</div>
+	 					<div id="right-answer"></div>
+	 					<div class="navi-buttons">
+					 		<button id="btn-cont">Submit Answer</button>
+					 	</div>
+	 			</fieldset>
+	 		</form>
+	 		
 	 	</div>
+	 	
 	 </div>
  	<footer>
- 		<div>Section is para for sharing content.</div>
+ 		<div>Some copyright content here</div>
  	</footer>
  </div>
  <script src="js/main.js"></script>
