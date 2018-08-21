@@ -4,12 +4,11 @@ import questions from './questions.json';
 var i= 0;
 var score = 0;
 var page = questions.questions;
-var timeClicked = 0;
+var flag = true;
 
 
 
 generateQuestion(0);
-//console.log(page.length);
 
 function _(id){
  return document.getElementById(id);
@@ -18,80 +17,89 @@ function _(id){
 
 
 function generateQuestion(i){
-	_('right-answer').innerHTML = ""
+	_('right-answer').style.display = "none";
 	_("opt1").checked = false;
 	_("opt2").checked = false;
 	_("opt3").checked = false;
 	_('question').innerHTML = page[i].heading;
 	_('question-desc').innerHTML = page[i].text_description;
-	_('optt1').innerHTML = page[i].choices[0]
-	_('optt2').innerHTML = page[i].choices[1]
-	_('optt3').innerHTML = page[i].choices[2]
-	_('optt1').value = page[i].choices[0]
-	_('optt2').value = page[i].choices[1]
-	_('optt3').value = page[i].choices[2]
+	_('optt1').innerHTML = `<span></span>`+page[i].choices[0]
+	_('optt2').innerHTML = `<span></span>`+page[i].choices[1]
+	_('optt3').innerHTML = `<span></span>`+page[i].choices[2]
+	_('opt1').value = page[i].choices[0]
+	_('opt2').value = page[i].choices[1]
+	_('opt3').value = page[i].choices[2]
 
 }
-function nextQuestion(i){
-	_("btn-cont").addEventListener('click',function(e){
 
-		if(page.length > i){
-			generateQuestion(i);
-		} else{
-			_('block-quiz').innerHTML = "Your score is "+ score;
-		}
-	});
-
-
+/*
+* Following function is to call the generate function for the next question
+*
+*/
+function nextQuestion(){
+	
+	if(page.length > i){
+		generateQuestion(i);
+		_('btn-cont').innerHTML  = "Submit Answer";
+	} else{
+		_('block-quiz').innerHTML = "Your score is "+ score;
+	}
+	flag = true;
+		
 
 }	
 	
 
 function checkAnswer(){
-	//e.preventDefault();
-	
-	if(_("opt1").checked && (_('optt1').value === page[i].answer)){
-		//_("opt1").value  = page[i].choices[0];
-		score++;
 
-	} else{
-		_('right-answer').innerHTML = page[i].answer;
-	}
-	if(_("opt2").checked &&(_('optt2').value === page[i].answer )){
-		//_("opt2").value  = page[i].choices[1];
+	var new_score = score;
+	_('right-answer').style.display = "block";
+	if(_("opt1").checked && (_('opt1').value === page[i].answer)){
 		score++;
-		
-	} else{
-		_('right-answer').innerHTML = page[i].answer;
+		_('optt1').className += 'style-label';
+		_('right-answer').innerHTML = "Correct<br/>";
+	}
+	if(_("opt2").checked &&(_('opt2').value === page[i].answer )){
+		score++;
+		_('optt2').className += 'style-label';
+		_('right-answer').innerHTML = "Correct<br/>";
+	} 
+	
+	if(_("opt3").checked &&  _('opt3').value === page[i].answer){
+		score++;
+		_('optt3').className += 'style-label';
+		_('right-answer').innerHTML = "Correct<br/>";
 	}
 	
-	if(_("opt3").checked &&  _('optt3').value === page[i].answer){
-		//_("opt3").value  = page[i].choices[2];
-		score++;
-		
-	} else{
-		_('right-answer').innerHTML = page[i].answer;
+	if ( new_score == score){
+		_('right-answer').innerHTML = "Incorrect<br/>";
 	}
+
+	_('right-answer').innerHTML += page[i].answer;
 	i++;
 	_('btn-cont').innerHTML  = "Continue";
-
-	nextQuestion(i);
+	flag = false;
 	
 }
 
-_("btn-cont").addEventListener('click',function(e){
-	var timesClicked =1;
 
+/*
+* Clicke event function based on gettign the right answer or proceeding to the next question
+*
+*/
+_("btn-cont").addEventListener('click',function(e){
 	e.preventDefault();
-	if( timesClicked % 2 != 0){
-		timesClicked++;
-		_('btn-cont').innerHTML  = "Submit Answer";
+	if(flag){
 		checkAnswer();
+	} else{
+		nextQuestion();
 	}
 	
 	
+});
 	
-})
+	
+
 
 // This section is added to avoid the hot module error and warning saying full reload is needed
 if (module.hot) {
