@@ -5,9 +5,10 @@ var i= 0;
 var score = 0;
 var page = questions.questions;
 var flag = true;
+var lbls = document.querySelectorAll('.choice-lbl')
 
 
-
+ 
 generateQuestion(0);
 
 function _(id){
@@ -39,6 +40,19 @@ function generateQuestion(i){
 function nextQuestion(){
 	
 	if(page.length > i){
+		lbls.forEach(function(lbl){
+			if(lbl.classList.contains('grayd')){
+				lbl.classList.remove('grayd');
+			}
+			if(lbl.classList.contains('style-label')){
+
+				lbl.classList.remove('style-label')
+			}
+			if(lbl.classList.contains('wrong-label')){
+
+				lbl.classList.remove('wrong-label')
+			}
+		})
 		generateQuestion(i);
 		_('btn-cont').innerHTML  = "Submit Answer";
 	} else{
@@ -52,33 +66,57 @@ function nextQuestion(){
 
 function checkAnswer(){
 
-	var new_score = score;
-	_('right-answer').style.display = "block";
-	if(_("opt1").checked && (_('opt1').value === page[i].answer)){
-		score++;
-		_('optt1').className += 'style-label';
-		_('right-answer').innerHTML = "Correct<br/>";
-	}
-	if(_("opt2").checked &&(_('opt2').value === page[i].answer )){
-		score++;
-		_('optt2').className += 'style-label';
-		_('right-answer').innerHTML = "Correct<br/>";
-	} 
-	
-	if(_("opt3").checked &&  _('opt3').value === page[i].answer){
-		score++;
-		_('optt3').className += 'style-label';
-		_('right-answer').innerHTML = "Correct<br/>";
-	}
-	
-	if ( new_score == score){
-		_('right-answer').innerHTML = "Incorrect<br/>";
+	if(_("opt1").checked  || _("opt2").checked  ||_("opt3").checked ){
+
+		lbls.forEach(function(lbl){
+			lbl.className += ' grayd';
+		})
+
+		var new_score = score;
+		_('right-answer').style.display = "block";
+		if(_("opt1").checked && (_('opt1').value === page[i].answer)){
+			score++;
+			_('optt1').className += ' style-label';
+			_('right-answer').innerHTML = "Correct<br/>";
+
+		} else if(_("opt1").checked){
+			_('optt1').className += 'wrong-label';
+			_('right-answer').innerHTML = "Incorrect<br/>";
+		}
+
+		if(_("opt2").checked &&(_('opt2').value === page[i].answer )){
+			score++;
+			_('optt2').className += ' style-label';
+			_('right-answer').innerHTML = "Correct<br/>";
+		} else if(_("opt2").checked){
+			_('optt2').className += 'wrong-label';
+			_('right-answer').innerHTML = "Incorrect<br/>";
+		}
+
+		
+		if(_("opt3").checked &&  _('opt3').value === page[i].answer){
+			score++;
+			_('optt3').className += ' style-label';
+			_('right-answer').innerHTML = "Correct<br/>";
+		} else if(_("opt3").checked){
+			_('optt3').className += 'wrong-label';
+			_('right-answer').innerHTML = "Incorrect<br/>";
+		}
+		
+		if ( new_score == score){
+		//	_('right-answer').innerHTML = "Incorrect<br/>";
+		}
+
+		_('right-answer').innerHTML += page[i].answer;
+		i++;
+		_('btn-cont').innerHTML  = "Continue";
+		flag = false;
+	} else {
+		console.log("Reached here")
+		
 	}
 
-	_('right-answer').innerHTML += page[i].answer;
-	i++;
-	_('btn-cont').innerHTML  = "Continue";
-	flag = false;
+	
 	
 }
 

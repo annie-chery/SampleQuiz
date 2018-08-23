@@ -95,10 +95,31 @@ input[type="radio"]:checked + label span {
 	background-color: #000 ; 
 	//border-color: #ccf;
 }
+label.grayd{
+	color:gray;
+}
+label.grayd.style-label{
+	color:#000;
+}
+label.grayd.wrong-label{
+	color:red;
+}
 
 input[type="radio"]:checked + label.style-label span{
-	border:4px solid #F2A900;
-	background:url('./images/sharp_check_white.png')
+	//border:4px solid #F2A900;
+	//background:#f2a900 url('../images/sharp_check_white.png');
+	width:16px;
+	height:16px;
+	border:none;
+	box-shadow:none;
+	background: #f2a900 url(../images/sharp_check_white.png) center center no-repeat;
+    background-size: 70%;
+    width: 19px;
+    height: 19px;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+
 }
 footer{
 	padding:30px;
